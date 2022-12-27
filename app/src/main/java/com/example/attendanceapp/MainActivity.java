@@ -2,6 +2,7 @@ package com.example.attendanceapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +10,14 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
+    RecyclerView recyclerView;
+    ClassAdapter classAdapter;
+    RecyclerView.LayoutManager LayoutManager;
+    ArrayList<ClassItem> ClassItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> showDialog());
     }
 
-    private void showDialog(){
+    private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.class_dialog, root: null);
-
+        View view = LayoutInflater.from(this).inflate(R.layout.class_dialog,null);
         builder.setView(view);
+
+
     }
 }
