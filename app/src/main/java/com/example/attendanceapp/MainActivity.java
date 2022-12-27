@@ -2,11 +2,14 @@ package com.example.attendanceapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager LayoutManager;
     ArrayList<ClassItem> ClassItems = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +31,26 @@ public class MainActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.fab_main);
         fab.setOnClickListener(view -> showDialog());
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        LayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(LayoutManager);
+
+        classAdapter = new ClassAdapter(this, ClassItems);
+        recyclerView.setAdapter(classAdapter);
     }
 
     private void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.class_dialog,null);
-        builder.setView(view);
+        MyDialog dialog = new MyDialog();
+        dialog.show(getSupportFragmentManager(), MyDialog.CLASS_ADD_DIALOG);
+        dialog.setListener((className, subjectName) -> addClass(className,subjectName)) ;
 
-        builder.create().show();
+    }
 
+    private void addClass(String className, String subjectName) {
+
+        ClassItems.add(new ClassItem(className,subjectName));
+        classAdapter.notifyDataSetChanged();
     }
 }

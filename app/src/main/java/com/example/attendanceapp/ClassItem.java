@@ -1,7 +1,7 @@
 package com.example.attendanceapp;
 
 public class ClassItem {
-    String className;
+    private String className;
 
     public String getClassName() {
         return className;
@@ -19,7 +19,7 @@ public class ClassItem {
         SubjectName = subjectName;
     }
 
-    String SubjectName;
+    private String SubjectName;
 
     public ClassItem(String className, String subjectName) {
         this.className = className;

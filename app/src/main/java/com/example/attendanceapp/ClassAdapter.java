@@ -15,6 +15,11 @@ class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
     ArrayList<ClassItem> classItems;
     Context context;
 
+    private OnItemClickListener onItemClickListener .....
+    public interface OnItemClickListener{
+        void onClick(int position);
+    }
+
     public ClassAdapter(Context context, ArrayList<ClassItem> classItems) {
         this.classItems = classItems;
         this.context = context;

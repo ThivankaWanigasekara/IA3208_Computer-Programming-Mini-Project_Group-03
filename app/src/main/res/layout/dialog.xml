@@ -11,9 +11,10 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/titleDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add new Class"
+            android:text="Title"
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="20sp"
@@ -26,18 +27,18 @@
             android:background="#00000000"
             />
         <EditText
-            android:id="@+id/class_edt"
+            android:id="@+id/est01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Class Name"
+            android:hint="edt01"
             android:layout_margin="8dp"
             />
 
         <EditText
-            android:id="@+id/subject_edt"
+            android:id="@+id/edt02"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Subject Name"
+            android:hint="edt02"
             android:layout_margin="8dp"
             />
 
