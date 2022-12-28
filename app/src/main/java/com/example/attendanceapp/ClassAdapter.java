@@ -15,9 +15,13 @@ class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
     ArrayList<ClassItem> classItems;
     Context context;
 
-    private OnItemClickListener onItemClickListener .....
+    private OnItemClickListener onItemClickListener;
     public interface OnItemClickListener{
         void onClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public ClassAdapter(Context context, ArrayList<ClassItem> classItems) {
@@ -28,11 +32,11 @@ class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
     public static class ClassViewHolder extends RecyclerView.ViewHolder{
 TextView className;
 TextView subjectName;
-        public ClassViewHolder(@NonNull View itemView) {
+        public ClassViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             className = itemView.findViewById(R.id.Class_tv);
             subjectName = itemView.findViewById(R.id.subject_tv);
-
+            itemView.setOnClickListener(v -> onItemClickListener.onClick(getAdapterPosition()));
         }
     }
 
@@ -40,7 +44,7 @@ TextView subjectName;
     @Override
     public ClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemVeiw = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item,parent,false);
-        return new ClassViewHolder(itemVeiw);
+        return new ClassViewHolder(itemVeiw, onItemClickListener);
     }
 
     @Override
