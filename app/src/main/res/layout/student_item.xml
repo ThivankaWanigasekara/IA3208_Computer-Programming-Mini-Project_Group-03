@@ -7,7 +7,7 @@
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
     android:layout_marginTop="6dp"
-    app:cardUseCompatpadding="false"
+    app:cardUseCompatPadding="false"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="false"
     app:cardCornerRadius="4dp">
