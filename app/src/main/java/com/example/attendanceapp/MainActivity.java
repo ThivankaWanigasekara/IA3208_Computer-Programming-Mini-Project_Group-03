@@ -1,19 +1,16 @@
 package com.example.attendanceapp;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -61,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         classItems.clear();
         while (cursor.moveToNext()){
-            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(DbHelper.C_ID));
-            @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(DbHelper.CLASS_NAME_KEY));
-            @SuppressLint("Range") String subjectName = cursor.getString(cursor.getColumnIndex(DbHelper.SUBJECT_NAME_KEY));
+            int id = cursor.getInt (cursor.getColumnIndex(DbHelper.C_ID ));
+            String className = cursor.getString(cursor.getColumnIndex(DbHelper.CLASS_NAME_KEY));
+            String subjectName = cursor.getString(cursor.getColumnIndex(DbHelper.SUBJECT_NAME_KEY));
 
-            classItems.add(new ClassItem(id,className,subjectName));
+            classItems.add(new ClassItem (id,className,subjectName));
         }
     }
 
@@ -104,5 +101,21 @@ public class MainActivity extends AppCompatActivity {
         ClassItem classItem = new ClassItem(cid, className, subjectName);
         classItems.add(classItem);
         classAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case 0:
+                break;
+            case 1:
+                deleteClass(item.getGroupId());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteClass(int position) {
+        classItems.remove(position);
+        classAdapter.notifyItemRemoved(position);
     }
 }

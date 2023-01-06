@@ -13,6 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
 
     //class table
+
     private static final String CLASS_TABLE_NAME = "CLASS_TABLE";
     public static final String C_ID = "_CID";
     public static final String CLASS_NAME_KEY = "CLASS_NAME";
@@ -27,7 +28,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     ");";
 
     private static final String DROP_CLASS_TABLE = "DROP TABLE IF EXISTS " + CLASS_TABLE_NAME;
-    private static final String SELECT_CLASS_TABLE = "SELECT * FROM" + CLASS_TABLE_NAME;
+    private static final String SELECT_CLASS_TABLE = "SELECT * FROM " + CLASS_TABLE_NAME;
 
 
     //student table
@@ -48,7 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     ");";
 
     private static final String DROP_STUDENT_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE_NAME;
-    private static final String SELECT_STUDENT_TABLE = "SELECT * FROM" + STUDENT_TABLE_NAME;
+    private static final String SELECT_STUDENT_TABLE = " SELECT * FROM " + STUDENT_TABLE_NAME;
 
 
 
@@ -72,7 +73,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     ");";
 
     private static final String DROP_STATUS_TABLE = "DROP TABLE IF EXISTS " + STATUS_TABLE_NAME;
-    private static final String SELECT_STATUS_TABLE = "SELECT * FROM" + STATUS_TABLE_NAME;
+    private static final String SELECT_STATUS_TABLE = " SELECT * FROM " + STATUS_TABLE_NAME;
 
 
 

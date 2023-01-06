@@ -14,24 +14,24 @@ public class ClassItem {
     }
 
     public String getSubjectName() {
-        return SubjectName;
+        return subjectName;
     }
 
     public void setSubjectName(String subjectName) {
-        SubjectName = subjectName;
+        this.subjectName = subjectName;
     }
 
-    private String SubjectName;
+    private String subjectName;
 
     public ClassItem(String className, String subjectName) {
         this.className = className;
-        SubjectName = subjectName;
+        this.subjectName = subjectName;
     }
 
     public ClassItem(long cid, String className, String subjectName) {
         this.cid = cid;
         this.className = className;
-        SubjectName = subjectName;
+        this.subjectName = subjectName;
     }
 
     public long getCid() {
