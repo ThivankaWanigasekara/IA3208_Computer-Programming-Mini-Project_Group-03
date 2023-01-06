@@ -6,7 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ClassAdapter classAdapter;
     RecyclerView.LayoutManager LayoutManager;
-    ArrayList<ClassItem> ClassItems = new ArrayList<>();
+    ArrayList<ClassItem> classItems = new ArrayList<>();
     Toolbar toolbar;
+    DbHelper dbHelper;
 
 
 
@@ -35,18 +38,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dbHelper = new DbHelper(this);
+
         fab = findViewById(R.id.fab_main);
         fab.setOnClickListener(view -> showDialog());
+
+        loadData();
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         LayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(LayoutManager);
 
-        classAdapter = new ClassAdapter(this, ClassItems);
+        classAdapter = new ClassAdapter(this, classItems);
         recyclerView.setAdapter(classAdapter);
         classAdapter.setOnItemClickListener(position -> gotoItemActivity(position));
-setToolbar();
+        setToolbar();
+    }
+
+    private void loadData() {
+        Cursor cursor = dbHelper.getClassTable();
+
+        classItems.clear();
+        while (cursor.moveToNext()){
+            @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(DbHelper.C_ID));
+            @SuppressLint("Range") String className = cursor.getString(cursor.getColumnIndex(DbHelper.CLASS_NAME_KEY));
+            @SuppressLint("Range") String subjectName = cursor.getString(cursor.getColumnIndex(DbHelper.SUBJECT_NAME_KEY));
+
+            classItems.add(new ClassItem(id,className,subjectName));
+        }
     }
 
     private void setToolbar() {
@@ -65,8 +85,8 @@ setToolbar();
     private void gotoItemActivity(int position) {
         Intent intent = new Intent(this,StudentActivity.class);
 
-        intent.putExtra("class", ClassItems.get(position).getClassName());
-        intent.putExtra("subjectName", ClassItems.get(position).getSubjectName());
+        intent.putExtra("class", classItems.get(position).getClassName());
+        intent.putExtra("subjectName", classItems.get(position).getSubjectName());
         intent.putExtra("position", position);
         startActivity(intent);
     }
@@ -80,8 +100,9 @@ setToolbar();
     }
 
     private void addClass(String className, String subjectName) {
-
-        ClassItems.add(new ClassItem(className,subjectName));
+        long cid = dbHelper.AddClass(className,subjectName);
+        ClassItem classItem = new ClassItem(cid, className, subjectName);
+        classItems.add(classItem);
         classAdapter.notifyDataSetChanged();
     }
 }
