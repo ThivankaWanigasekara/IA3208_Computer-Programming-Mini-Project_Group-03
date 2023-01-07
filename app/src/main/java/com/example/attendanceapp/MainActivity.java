@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DbHelper(this);
 
         fab = findViewById(R.id.fab_main);
-        fab.setOnClickListener(view -> showDialog());
+        fab.setOnClickListener(v -> showDialog());
 
         loadData();
 
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             classItems.add(new ClassItem (id,className,subjectName));
         }
     }
+
+
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case 0:
+                showUpdateDialog(item.getGroupId());
                 break;
             case 1:
                 deleteClass(item.getGroupId());
@@ -114,7 +117,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    private void showUpdateDialog(int position) {
+        MyDialog dialog = new MyDialog();
+        dialog.show(getSupportFragmentManager(),MyDialog.CLASS_UPDATE_DIALOG);
+    }
+
     private void deleteClass(int position) {
+        dbHelper.deleteClass(classItems.get(position).getCid());
         classItems.remove(position);
         classAdapter.notifyItemRemoved(position);
     }

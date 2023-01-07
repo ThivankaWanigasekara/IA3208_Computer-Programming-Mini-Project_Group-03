@@ -119,4 +119,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return database.rawQuery(SELECT_CLASS_TABLE,null);
     }
+
+    int deleteClass(long cid){
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.delete(CLASS_TABLE_NAME,C_ID+"=?" ,new String[]{String.valueOf(cid)});
+
+    }
 }
