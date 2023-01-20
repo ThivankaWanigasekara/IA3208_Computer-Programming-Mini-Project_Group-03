@@ -128,3 +128,5 @@ public class MainActivity extends AppCompatActivity {
         classAdapter.notifyItemRemoved(position);
     }
 }
+
+
