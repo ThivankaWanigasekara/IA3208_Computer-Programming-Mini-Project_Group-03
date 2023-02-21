@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         classItems.clear();
         while (cursor.moveToNext()){
-            int id = cursor.getInt (cursor.getColumnIndex(DbHelper.C_ID ));
+            int id = cursor.getInt(cursor.getColumnIndex(DbHelper.C_ID ));
             String className = cursor.getString(cursor.getColumnIndex(DbHelper.CLASS_NAME_KEY));
             String subjectName = cursor.getString(cursor.getColumnIndex(DbHelper.SUBJECT_NAME_KEY));
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("class", classItems.get(position).getClassName());
         intent.putExtra("subjectName", classItems.get(position).getSubjectName());
         intent.putExtra("position", position);
+        intent.putExtra("cid", classItems.get(position).getCid());
         startActivity(intent);
     }
 
@@ -120,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
     private void showUpdateDialog(int position) {
         MyDialog dialog = new MyDialog();
         dialog.show(getSupportFragmentManager(),MyDialog.CLASS_UPDATE_DIALOG);
+        dialog.setListener((className,subjectName)->updateClass(position,className,subjectName));
+    }
+
+    private void updateClass(int position, String className, String subjectName) {
+        dbHelper.updateClass(classItems.get(position).getCid(),className, subjectName);
+        classItems.get(position).setClassName(className);
+        classItems.get(position).setSubjectName(subjectName);
+        classAdapter.notifyItemChanged(position);
     }
 
     private void deleteClass(int position) {
@@ -128,8 +137,4 @@ public class MainActivity extends AppCompatActivity {
         classAdapter.notifyItemRemoved(position);
     }
 }
-
-
-
-
 
