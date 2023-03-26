@@ -38,7 +38,7 @@ public class AppCalendar extends DialogFragment {
     }
 
     String getDate(){
-        return DateFormat.format("dd.mm.y", calendar).toString();
+        return DateFormat.format("dd.MM.yyyy", calendar).toString();
     }
 }
 
