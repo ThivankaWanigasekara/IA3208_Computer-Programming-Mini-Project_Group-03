@@ -38,7 +38,7 @@ public class StudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        calendar = new MyCalendar();
+        calendar = new AppCalendar();
         dbHelper = new DbHelper(this);
         Intent intent = getIntent();
         className = intent.getStringExtra("className");
